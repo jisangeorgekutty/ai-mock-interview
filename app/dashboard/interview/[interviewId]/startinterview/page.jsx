@@ -5,6 +5,8 @@ import { eq } from 'drizzle-orm';
 import React, { useEffect, useState } from 'react'
 import QuestionSection from './_components/QuestionSection';
 import RecordAnswerSection from './_components/RecordAnswerSection';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 function StartInterview({ params }) {
     const { interviewId } = React.use(params);
@@ -23,8 +25,7 @@ function StartInterview({ params }) {
         const jsonMockResp = JSON.parse(result[0].jsonMockResp);
         setMockInterviewQuestion(jsonMockResp);
         setInterviewData(result[0]);
-        // console.log(jsonMockResp)
-        console.log("data" + mockInterviewQuestion)
+        console.log("DATA" + result[0])
     }
     return (
         <div>
@@ -36,7 +37,18 @@ function StartInterview({ params }) {
                 {/* answer record section */}
                 <RecordAnswerSection mockInterviewQuestion={mockInterviewQuestion}
                     activeIndexQuestion={activeIndexQuestion}
+                    interviewData={interviewData}
                 />
+            </div>
+            <div className='flex justify-end gap-6'>
+            {activeIndexQuestion>0&&
+            <Button onClick={()=>setActiveIndexQuestion(activeIndexQuestion-1)}>Previous Question</Button>}
+            {activeIndexQuestion!=mockInterviewQuestion?.length-1&&
+            <Button onClick={()=>setActiveIndexQuestion(activeIndexQuestion+1)}>Next Question</Button>}
+            {activeIndexQuestion==mockInterviewQuestion?.length-1&& 
+            <Link href={'/dashboard/interview/'+interviewData?.mockId+'/feedback'}>
+            <Button >End Interview</Button>
+            </Link>}
             </div>
         </div>
     )
