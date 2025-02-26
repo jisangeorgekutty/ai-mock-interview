@@ -12,7 +12,8 @@ function Header() {
    },[])
   return (
     <div className='flex items-center justify-between p-6 bg-secondary shadow-sm'>
-        <Image src={'/logo.svg'} width={160} height={100} alt='logo'/>
+        <Image src={'/mainlogo3.png'} width={160} height={100} alt='logo'/>
+        
         <nav>
         <ul className='hidden md:flex items-center gap-5'>
             <li className={` hover:font-bold transition-all cursor:pointer

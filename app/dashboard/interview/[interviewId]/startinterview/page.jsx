@@ -21,11 +21,14 @@ function StartInterview({ params }) {
     const GetInterviewDetails = async () => {
         const result = await db.select().from(MockInterview)
             .where(eq(MockInterview.mockId, interviewId));
-        console.log(result);
-        const jsonMockResp = JSON.parse(result[0].jsonMockResp);
+        console.log(result[0]);
+        // const resultData=result[0];
+        // console.log("DATA:"+resultData)
+        console.log("TEST"+result[0].jsonMockResp)
+        const resultData=result[0]?.jsonMockResp;
+        const jsonMockResp = JSON.parse(resultData);
         setMockInterviewQuestion(jsonMockResp);
         setInterviewData(result[0]);
-        console.log("DATA" + result[0])
     }
     return (
         <div>
@@ -41,14 +44,14 @@ function StartInterview({ params }) {
                 />
             </div>
             <div className='flex justify-end gap-6'>
-            {activeIndexQuestion>0&&
-            <Button onClick={()=>setActiveIndexQuestion(activeIndexQuestion-1)}>Previous Question</Button>}
-            {activeIndexQuestion!=mockInterviewQuestion?.length-1&&
-            <Button onClick={()=>setActiveIndexQuestion(activeIndexQuestion+1)}>Next Question</Button>}
-            {activeIndexQuestion==mockInterviewQuestion?.length-1&& 
-            <Link href={'/dashboard/interview/'+interviewData?.mockId+'/feedback'}>
-            <Button >End Interview</Button>
-            </Link>}
+                {activeIndexQuestion > 0 &&
+                    <Button onClick={() => setActiveIndexQuestion(activeIndexQuestion - 1)}>Previous Question</Button>}
+                {activeIndexQuestion != mockInterviewQuestion?.length - 1 &&
+                    <Button onClick={() => setActiveIndexQuestion(activeIndexQuestion + 1)}>Next Question</Button>}
+                {activeIndexQuestion == mockInterviewQuestion?.length - 1 &&
+                    <Link href={'/dashboard/interview/' + interviewData?.mockId + '/feedback'}>
+                        <Button >End Interview</Button>
+                    </Link>}
             </div>
         </div>
     )
