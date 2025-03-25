@@ -1,35 +1,45 @@
 "use client"
 import React, { useEffect } from 'react'
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
-
+import { usePathname,useRouter } from 'next/navigation';
 import { ArrowRightIcon } from "@heroicons/react/24/solid";
 
 
 function MainPage() {
     const path = usePathname();
+    const router = useRouter();
     useEffect(() => {
         console.log(path)
-    }, [])
+    }, []);
+
+    const handleUpgrade = () => {
+        router.push('/upgrade');
+    };
+    const handleWork = () => {
+        router.push('/work');
+    };
+    const handleDashboard=()=>{
+        router.push('/dashboard')
+    }
+
     return (
         <div>
             <img loading="lazy" width="1200" height="300" decoding="async" data-nimg="1" className="absolute z-[-10] w-full" style={{ color: "transparent" }} src="/grid.svg"></img>
             <div className='flex items-center justify-between p-6 bg-secondary shadow-sm'>
+                <button onClick={handleDashboard}>
                 <Image src={'/mainlogo3.png'} width={160} height={100} alt='logo' />
+                </button>
                 <nav>
                     <ul className='hidden md:flex items-center gap-5'>
-                        <li className={` hover:font-bold transition-all cursor:pointer
+                        <li className={` hover:font-bold transition-all cursor-pointer
                 ${path == '/dashboard' && 'text-primary font-bold'}
-                `}>Dashboard</li>
-                        <li className={` hover:font-bold transition-all cursor:pointer
-                ${path == '/dashboard/questions' && 'text-primary font-bold'}
-                `}>Questions</li>
-                        <li className={` hover:font-bold transition-all cursor:pointer
-                ${path == '/dashboard/upgrade' && 'text-primary font-bold'}
-                `}>Upgrade</li>
-                        <li className={` hover:font-bold transition-all cursor:pointer
-                ${path == '/dashboard/work' && 'text-primary font-bold'}
-                `}>How it Works?</li>
+                `} onClick={handleDashboard}>Dashboard</li>
+                        <li className={` hover:font-bold transition-all cursor-pointer
+                ${path == '/upgrade' && 'text-primary font-bold'}
+                `} onClick={handleUpgrade}>Upgrade</li>
+                        <li className={` hover:font-bold transition-all cursor-pointer
+                ${path == '/work' && 'text-primary font-bold'}
+                `} onClick={handleWork}>How it Works?</li>
                     </ul>
                 </nav>
             </div>
@@ -50,7 +60,7 @@ function MainPage() {
             </section>
             <section className="py-8 bg-white z-50 px-4 mx-auto max-w-screen-xl text-center lg:py-16 lg:px-12">
                 <h2 className="font-bold text-3xl">How it Works?</h2>
-                <h2 className="text-md text-gray-500">Give mock interview in just 3 simple easy step</h2>
+                <h2 className="text-md text-gray-500">Give mock interview in just 3 simple steps</h2>
 
                 <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
 
